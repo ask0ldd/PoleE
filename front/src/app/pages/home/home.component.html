@@ -1,1 +1,10 @@
-<p class="bg-[#ff0000] border-1 p-[20px]">home works!</p>
+<div class="flex flex-col w-[100%] gap-y-[10px]">
+    @for(jobsOffer of jobsOffers; track jobsOffer) {
+        <article class="flex flex-col border-1 border-[#eeeeee] p-[15px] rounded-[6px] gap-y-[10px] bg-[#ffffff] shadow-lg shadow-[#000000] hover:border-[#dddddd] hover:cursor-pointer">
+            <h2 class="m-[0]">{{jobsOffer.intitule | lowercase}}</h2>
+            <div class="flex flex-row gap-x-[10px]"><span>{{jobsOffer.entreprise.nom}}</span><span>{{jobsOffer.lieuTravail.libelle}}</span></div>
+            <span class="text-[12px]">{{jobsOffer.description | truncTitle:240}}</span>
+            <span class="text-[12px]">{{jobsOffer.dateCreation}}</span>
+        </article>
+    }
+</div>
