@@ -1,0 +1,20 @@
+{
+    "/jobsauth": {
+      "target": "https://entreprise.francetravail.fr",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug",
+      "pathRewrite": {
+        "^/jobsauth": ""
+      }
+    },
+    "/jobsapi": {
+      "target": "https://api.francetravail.io",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug",
+      "pathRewrite": {
+        "^/jobsapi": ""
+      }
+    }
+}
