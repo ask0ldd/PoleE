@@ -22,13 +22,13 @@ export class AppComponent/* implements OnInit, OnDestroy*/{
 
   ngOnInit(): void {
     // retrieve the user id from the claims into the jwt
-    this.subscription = this.thirdPartyTokenService.fetchAccessToken().pipe(take(1)).subscribe(token => {
+    /*this.subscription = this.thirdPartyTokenService.fetchAccessToken().pipe(take(1)).subscribe(token => {
       if(!token) return console.log("Can't retrieve the job API token.")
       this.thirdPartyTokenService.setToken(token)
-    })
+    })*/
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe()
+    // this.subscription.unsubscribe()
   }
 }
