@@ -1,0 +1,16 @@
+<div class="flex flex-col gap-y-[15px]">
+    @if(!jobOffer){
+        Loading...
+    }
+    @if(jobOffer){
+        <h2>{{jobOffer.id}} - {{jobOffer.intitule | lowercase | capitalizeFirstLetter}}</h2>
+        <div class="flex flex-row justify-between">
+            <span>{{jobOffer.entreprise.nom}}</span>
+            <span>{{jobOffer.lieuTravail.libelle}}</span>
+        </div>
+        <span class="text-[12px]">{{jobOffer.dateCreation | toElapsedDays}}</span>
+        <span [innerText]="jobOffer.description.replace('##', '')"></span> <!-- auto sanitized by angular -->
+        <div class="bg-[#ffffff] w-fit p-[10px] rounded-[6px] text-[14px]">{{jobOffer.experienceLibelle}}</div>
+    }
+</div>
+
