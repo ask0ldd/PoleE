@@ -1,0 +1,15 @@
+<div class="flex flex-col w-[100%] gap-y-[10px]">
+    @if(jobsOffers == null || jobsOffers.length == 0) {
+        <article>Loading...</article>
+    }
+    @for(jobsOffer of jobsOffers; track jobsOffer) {
+        <article [routerLink]="['/jobs/details/'+jobsOffer.id]" class="flex flex-col border-1 border-[#e9e9e9] p-[15px] rounded-[6px] gap-y-[15px] bg-[#ffffff] shadow-md shadow-[#000000] hover:border-[#dddddd] hover:cursor-pointer">
+            <h2 class="m-[0]">{{jobsOffer.intitule | lowercase | capitalizeFirstLetter}}</h2>
+            <div class="flex flex-row gap-x-[10px]">
+                    <span>{{jobsOffer.entreprise.nom ? jobsOffer.entreprise.nom : "Unknown"}}</span> / <span>{{jobsOffer.lieuTravail.libelle}}</span>
+            </div>
+            <span class="text-[12px] leading-[18px]">{{jobsOffer.description | truncTitle:240}}</span>
+            <span class="text-[12px]">{{jobsOffer.dateCreation | toElapsedDays}}</span>
+        </article>
+    }
+</div>
