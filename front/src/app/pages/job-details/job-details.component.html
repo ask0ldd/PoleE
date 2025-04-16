@@ -1,16 +1,17 @@
-<div class="flex flex-col gap-y-[15px]">
+<div class="flex flex-col w-full gap-y-[15px] bg-white px-[80px] py-[15px] min-h-[100vh]">
     @if(!jobOffer){
-        Loading...
+        <span class="flex w-full text-center">Loading...</span>
     }
     @if(jobOffer){
-        <h2>{{jobOffer.id}} - {{jobOffer.intitule | lowercase | capitalizeFirstLetter}}</h2>
+        <h2 class="text-[32px] font-bold"><!--{{jobOffer.id}} - -->{{jobOffer.intitule | lowercase | capitalizeFirstLetter}}</h2>
         <div class="flex flex-row justify-between">
-            <span>{{jobOffer.entreprise.nom}}</span>
+            <span>{{jobOffer.entreprise.nom ?? 'Non communiqué'}}</span>
             <span>{{jobOffer.lieuTravail.libelle}}</span>
         </div>
         <span class="text-[12px]">{{jobOffer.dateCreation | toElapsedDays}}</span>
-        <span [innerText]="jobOffer.description.replace('##', '')"></span> <!-- auto sanitized by angular -->
-        <div class="bg-[#ffffff] w-fit p-[10px] rounded-[6px] text-[14px]">{{jobOffer.experienceLibelle}}</div>
+        <span class="flex flex-col gap-y-[15px]" [innerHTML]="jobOffer.description"></span> <!-- auto sanitized by angular -->
+        <span class="text-[12px]">{{jobOffer.salaire.libelle}}</span>
+        <div class="bg-[#ffffff] border-1 border-[#dadce0] w-fit p-[10px] rounded-[6px] text-[14px]">{{jobOffer.experienceLibelle}}</div>
     }
 </div>
 
