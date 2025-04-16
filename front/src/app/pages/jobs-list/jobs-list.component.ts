@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { JobsAPIService } from '../../services/mocks/jobs-api.service';
-import { filter, take } from 'rxjs';
+import { take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import IJobOffer from '../../interfaces/jobsAPI/IJobOffer';
 import { TruncTitlePipe } from '../../pipes/trunc-title.pipe';
@@ -31,7 +31,7 @@ export class JobsListComponent implements OnInit {
       // finalize(() => console.log('Observable fetch unsubscribed'))
       // takeUntil(this.destroy$)
     ).subscribe(
-      jobs => this.jobsOffers = jobs
+      offers => this.jobsOffers = offers.filter(offer => offer.description.toLowerCase()/*.includes("typescript")*/)
     )
   }
 
