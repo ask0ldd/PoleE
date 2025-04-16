@@ -4,7 +4,6 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
   box-sizing: inherit;
   position: relative;
 }
@@ -13,8 +12,7 @@ main {
   display: flex;
   justify-content: space-around;
   width: 100%;
-  max-width: 700px;
-  margin-bottom: 3rem;
+  max-width: 800px;
 }
 
 @media screen and (max-width: 650px) {
