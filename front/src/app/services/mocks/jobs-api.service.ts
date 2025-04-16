@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
-import { IJobsAPIAccessTokenResponse } from '../../interfaces/jobsAPI/responses/IJobsAPIAccessTokenResponse';
-import { IJobsAPIErrorResponse } from '../../interfaces/jobsAPI/responses/IJobsAPIErrorResponse';
+import { map, Observable } from 'rxjs';
 import IJobOffer from '../../interfaces/jobsAPI/IJobOffer';
+import { OptionalJobsAPIGetAllParams } from '../../interfaces/jobsAPI/requests/IJobsAPIGetAllParams';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +13,39 @@ export class JobsAPIService {
 
   constructor(private httpClient : HttpClient) { }
 
-  getAll() : Observable<IJobOffer[]>{
-    return this.httpClient.get<{resultats : IJobOffer[]}>(this.baseAPIUrl+'search?domaine=M18&departement=94,75,77'/*+'&motsCles=sio'+'?commune=75001'*/).pipe(map(response => response.resultats)) // !!! deal with error
+  // retrieve a list of jobs offers matching the given params
+  getAll(params ?: OptionalJobsAPIGetAllParams) : Observable<IJobOffer[]>{
+    const url = this.buildUrlWithParams<OptionalJobsAPIGetAllParams | null>(
+      this.baseAPIUrl,
+      { domaine : 'M18', departement : [94, 75, 77], /*publieeDepuis : 31, motsCles : ['typescript'], range : '0-50'*/ },
+    )
+    return this.httpClient
+      .get<{resultats : IJobOffer[]}>(url)
+      .pipe(map(response => response.resultats))
   }
 
+  // retrieve the job offer matching the given id
   getById(id : string) : Observable<IJobOffer>{
     return this.httpClient.get<IJobOffer>(this.baseAPIUrl+id) // !!! deal with error
   }
 
+  // build an url including the given params
+  buildUrlWithParams<T extends object | null>(baseUrl : string, params : T) : string{
+
+    const baseAPIUrl = baseUrl?.endsWith('/') ? baseUrl : baseUrl + '/'
+
+    if(params == null) return baseAPIUrl + 'search'
+
+    const queryParts: string[] = [];
+
+    for(const [key, value] of Object.entries(params)){ // better type safety than accessing value with : params[key as keyof typeof params]
+      if (value === undefined || value === null) continue;
+      if(Array.isArray(value)) queryParts.push(`${key}=${encodeURIComponent(value.join(','))}`)
+      if(typeof value == "string" || typeof value == "number") queryParts.push(`${key}=${encodeURIComponent(value)}`)
+    }
+
+    return baseAPIUrl + 'search?' + queryParts.join("&")
+  }
 }
 
 // doc : https://francetravail.io/produits-partages/catalogue/offres-emploi/documentation#/api-reference/operations/recupererListeOffre
@@ -29,147 +53,6 @@ export class JobsAPIService {
 // detail offre : https://api.francetravail.io/partenaire/offresdemploi/v2/offres/{id}
 
 // liste des offres : https://api.francetravail.io/partenaire/offresdemploi/v2/offres/search
-
-/*
-params
-accesTravailleurHandicape
-:
-Not SetFalseTrue
-
-select an option
-appellation
-:
-example: 38444
-codeNAF
-:
-example: 78.20Z
-codeROME
-:
-example: D1102,D1104,D1108
-commune
-:
-example: 33063,31555
-departement
-:
-example: 33,31
-distance
-:
-example: 10
-domaine
-:
-example: G17
-dureeContratMax
-:
-example: 24
-dureeContratMin
-:
-example: 0.5
-dureeHebdo
-:
-example: 1
-dureeHebdoMax
-:
-example: 2430
-dureeHebdoMin
-:
-example: 800
-entreprisesAdaptees
-:
-Not SetFalseTrue
-
-select an option
-experience
-:
-example: 2
-experienceExigence
-:
-example: D
-grandDomaine
-:
-example: M16
-inclureLimitrophes
-:
-Not SetFalseTrue
-
-select an option
-maxCreationDate
-:
-example: 2022-04-15T07:18:25Z
-minCreationDate
-:
-example: 2022-03-25T14:52:00Z
-modeSelectionPartenaires
-:
-example: INCLUS
-motsCles
-:
-example: boulanger,patissier
-natureContrat
-:
-example: E1
-niveauFormation
-:
-example: NV3
-offresMRS
-:
-Not SetFalseTrue
-
-select an option
-offresManqueCandidats
-:
-Not SetFalseTrue
-
-select an option
-origineOffre
-:
-example: 1
-partenaires
-:
-example: PARTENAIRE1
-paysContinent
-:
-example: 99127
-periodeSalaire
-:
-example: M
-permis
-:
-example: B
-publieeDepuis
-:
-example: 7
-qualification
-:
-example: 9
-range
-:
-example: 0-49
-region
-:
-example: 75
-salaireMin
-:
-example: 1400
-secteurActivite
-:
-example: 01,02
-sort
-:
-example: 1
-tempsPlein
-:
-Not SetFalseTrue
-
-select an option
-theme
-:
-example: 12
-typeContrat
-:
-example: CDI
-Authorization*
-:
-*/
 
 /* 
 response :
