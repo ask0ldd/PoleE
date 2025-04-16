@@ -15,7 +15,7 @@ export default interface IJobOffer {
     romeLibelle: string;
     appellationlibelle: string;
     entreprise: {
-      nom: string;
+      nom: string | null;
       description: string;
       entrepriseAdaptee: boolean;
     };
@@ -30,7 +30,7 @@ export default interface IJobOffer {
       exigence: string;
     }[];
     salaire: {
-      libelle: string;
+      libelle: string | null;
       complement1: string;
     };
     dureeTravailLibelle: string;
