@@ -9,10 +9,11 @@ import { ToElapsedDaysPipe } from '../../pipes/to-elapsed-days.pipe';
 import { RouterLink } from '@angular/router';
 import { ThirdPartyTokenService } from '../../services/third-party-token.service';
 import { CapitalizeFirstLetterPipe } from '../../pipes/capitalize-first-letter.pipe';
+import { JobItemComponent } from './job-item/job-item.component';
 
 @Component({
   selector: 'app-jobs-list',
-  imports: [TruncTitlePipe, LowerCasePipe, ToElapsedDaysPipe, RouterLink, CapitalizeFirstLetterPipe],
+  imports: [JobItemComponent],
   templateUrl: './jobs-list.component.html',
   styleUrl: './jobs-list.component.css'
 })
@@ -31,7 +32,7 @@ export class JobsListComponent implements OnInit {
       // finalize(() => console.log('Observable fetch unsubscribed'))
       // takeUntil(this.destroy$)
     ).subscribe(
-      offers => this.jobsOffers = offers.filter(offer => offer.description.toLowerCase()/*.includes("typescript")*/)
+      offers => this.jobsOffers = offers/*.filter(offer => offer.description.toLowerCase().includes("typescript"))*/
     )
   }
 

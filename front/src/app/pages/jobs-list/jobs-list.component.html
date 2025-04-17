@@ -1,26 +1,25 @@
-<div class="flex flex-col w-full gap-y-[10px] pt-[15px] pb-[30px]">
+<div class="flex flex-col w-full gap-y-[10px] pt-[15px] pb-[30px] max-w-[600px]">
+    <div class="flex flex-col w-full gap-y-[15px]">
+        <div class="flex bg-[#ffffff] rounded-[6px] h-[40px] items-center px-[15px]">Search Bar</div>
+        <div class="flex flex-row gap-x-[15px] h-[40px]">
+            <select class="bg-[#ffffff] px-[15px] rounded-[6px] shadow-[#dde8f7aa]">
+                <option value="first">First option</option>
+                <option value="second">Second option</option>
+                <option value="third">Third option</option>
+              </select>
+            <div class="flex items-center h-full bg-[#ffffff] px-[15px] rounded-[6px]">Domaine</div>
+            <div class="flex items-center h-full bg-[#ffffff] px-[15px] rounded-[6px]">Salaire</div>
+        </div>
+    </div>
     @if(jobsOffers == null || jobsOffers.length == 0) {
         <article class="flex w-full text-center">Loading...</article>
     }
     @if(jobsOffers && jobsOffers.length > 0) {
-        <div>
+        <div class="text-right text-[14px]">
             {{jobsOffers.length}} Offers displayed.
         </div>
     }
     @for(jobsOffer of jobsOffers; track jobsOffer) {
-        <article [routerLink]="['/jobs/details/'+jobsOffer.id]" class="flex flex-col border-1 border-[#e3e3ea] p-[15px] rounded-[6px] gap-y-[10px] bg-[#ffffff] hover:shadow-xl hover:shadow-[#00003315] hover:border-[#99ffe0] hover:outline-1 hover:outline-[#99ffe0] hover:cursor-pointer">
-            <h2 class="m-[0] text-[22px] font-bold">{{jobsOffer.intitule | lowercase | capitalizeFirstLetter}}</h2>
-            <div class="flex flex-row gap-x-[10px] text-[14px]">
-                    <span>{{jobsOffer.entreprise.nom ?? "Non renseigné"}}</span> / <span>{{jobsOffer.lieuTravail.libelle}}</span>
-            </div>
-            <span class="text-[12px] leading-[18px]">{{jobsOffer.description | truncTitle:240}}</span>
-            <span class="text-[12px]">{{jobsOffer.dateCreation | toElapsedDays}}</span>
-            <span class="text-[12px]">{{jobsOffer.salaire.libelle ?? "Salaire non communiqué"}}</span>
-            <ul class="flex flex-row text-[11px] gap-x-[6px] leading-4">
-                @for(competence of jobsOffer.competences; track competence){
-                    <li class="border-1 border-[#99ffe0] bg-[#99ffe066] pt-[7px] pb-[5px] px-[10px] rounded-[4px]">{{competence.libelle.slice(0,20)}}</li>
-                }
-            </ul>
-        </article>
+        <app-job-item [jobOffer]="jobsOffer"></app-job-item>
     }
 </div>
