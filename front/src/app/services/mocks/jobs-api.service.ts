@@ -15,9 +15,9 @@ export class JobsAPIService {
 
   // retrieve a list of jobs offers matching the given params
   getAll(params ?: OptionalJobsAPIGetAllParams) : Observable<IJobOffer[]>{
-    const url = this.buildUrlWithParams<OptionalJobsAPIGetAllParams | null>(
+    const url = this.buildUrlWithParams<OptionalJobsAPIGetAllParams>(
       this.baseAPIUrl,
-      { domaine : 'M18', departement : [94, 75, 77], /*publieeDepuis : 31, motsCles : ['typescript'], range : '0-50'*/ },
+      { domaine : 'M18', departement : [94, 75, 77], publieeDepuis : 31, /*motsCles : ['Typescript'],*/ range : '0-50' },
     )
     return this.httpClient
       .get<{resultats : IJobOffer[]}>(url)
@@ -30,21 +30,24 @@ export class JobsAPIService {
   }
 
   // build an url including the given params
-  buildUrlWithParams<T extends object | null>(baseUrl : string, params : T) : string{
+  buildUrlWithParams<T extends object | null>(baseUrl : string, params : T) : string {
 
     const baseAPIUrl = baseUrl?.endsWith('/') ? baseUrl : baseUrl + '/'
 
-    if(params == null) return baseAPIUrl + 'search'
+    if(!params) return baseAPIUrl + 'search'
 
-    const queryParts: string[] = [];
+    const queryParts: string[] = []
 
     for(const [key, value] of Object.entries(params)){ // better type safety than accessing value with : params[key as keyof typeof params]
-      if (value === undefined || value === null) continue;
-      if(Array.isArray(value)) queryParts.push(`${key}=${encodeURIComponent(value.join(','))}`)
-      if(typeof value == "string" || typeof value == "number") queryParts.push(`${key}=${encodeURIComponent(value)}`)
+      if (value === undefined || value === null) continue
+      if(Array.isArray(value)) { 
+        queryParts.push(`${key}=${encodeURIComponent(value.join(','))}`) 
+      }
+      else if(typeof value == "string" || typeof value == "number" || typeof value === "boolean") queryParts.push(`${key}=${encodeURIComponent(value)}`)
     }
 
-    return baseAPIUrl + 'search?' + queryParts.join("&")
+    if(queryParts.length < 1) return baseAPIUrl + 'search'
+    return baseAPIUrl + 'search?' + queryParts.join('&')
   }
 }
 
