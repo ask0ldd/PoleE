@@ -1,12 +1,10 @@
-<article [routerLink]="['/jobs/details/'+jobOffer.id]" class="flex flex-col border-1 border-[#ffffffcc] shadow-[#dde8f7aa] shadow-md px-[15px] pb-[15px] pt-[8px] rounded-[6px] gap-y-[8px] bg-[#ffffffbb] hover:shadow-md hover:shadow-[#3DA8A839] hover:outline-1 hover:outline-[#3DA8A899] hover:cursor-pointer">
-    <h2 class="m-[0] text-[22px] font-bold text-[#3DA8A8]">{{jobOffer.intitule | lowercase | capitalizeFirstLetter}}</h2>
-    <div class="flex flex-row gap-x-[10px] text-[14px]">
-            <span class="flex gap-x-[8px]">
-                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 21V18.7778H22V21H0ZM4.4 16.5556C3.795 16.5556 3.27727 16.3381 2.8468 15.9033C2.41633 15.4685 2.20073 14.9452 2.2 14.3333V6.55556C2.2 5.94444 2.4156 5.42148 2.8468 4.98667C3.278 4.55185 3.79573 4.33407 4.4 4.33333H7.7C7.7 3.40741 8.02083 2.62037 8.6625 1.97222C9.30417 1.32407 10.0833 1 11 1C11.9167 1 12.6958 1.32407 13.3375 1.97222C13.9792 2.62037 14.3 3.40741 14.3 4.33333H17.6C18.205 4.33333 18.7231 4.55111 19.1543 4.98667C19.5855 5.42222 19.8007 5.94519 19.8 6.55556V14.3333C19.8 14.9444 19.5848 15.4678 19.1543 15.9033C18.7238 16.3389 18.2057 16.5563 17.6 16.5556H4.4ZM16.5 14.3333H17.6V6.55556H16.5V14.3333ZM9.35 4.33333H12.65C12.65 3.85185 12.4942 3.4537 12.1825 3.13889C11.8708 2.82407 11.4767 2.66667 11 2.66667C10.5233 2.66667 10.1292 2.82407 9.8175 3.13889C9.50583 3.4537 9.35 3.85185 9.35 4.33333ZM5.5 14.3333V6.55556H4.4V14.3333H5.5ZM7.15 6.55556V14.3333H14.85V6.55556H7.15Z" fill="black"/>
-                </svg>                    
+<article [routerLink]="['/jobs/details/'+jobOffer.id]" class="flex flex-col w-full border-1 border-[#ffffffcc] shadow-[#dde8f7aa] shadow-md px-[15px] pb-[15px] pt-[8px] rounded-[6px] gap-y-[4px] bg-gradient-to-b from-[#ffffffbb] to-[#ffffff88] outline-1 outline-[#ffffff] hover:bg-[#ffffff] hover:shadow-md hover:shadow-[#7644BB39] hover:outline-1 hover:outline-[#7644BBcc] hover:cursor-pointer">
+    <h2 class="m-[0] text-[22px] font-bold leading-7.5 mt-[1px]">{{jobOffer.intitule | lowercase | capitalizeFirstLetter}}</h2>
+    <div class="flex flex-row gap-x-[10px] text-[14px] w-full mt-[4px]">
+            <span class="flex gap-x-[8px] text-[#7644BBcc] font-semibold">                
                 {{jobOffer.entreprise.nom ?? "Non renseigné"}}
-            </span> / <span class="flex gap-x-[8px]">
+            </span>
+            <span class="flex gap-x-[8px] ml-auto">
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_7_16)">
                     <path d="M10.0001 20.9501V19.9501C7.91672 19.7167 6.12905 18.8544 4.63705 17.3631C3.14505 15.8717 2.28272 14.0841 2.05005 12.0001H1.05005C0.766719 12.0001 0.529386 11.9041 0.338052 11.7121C0.146719 11.5201 0.0507189 11.2827 0.0500523 11.0001C0.0493856 10.7174 0.145386 10.4801 0.338052 10.2881C0.530719 10.0961 0.768052 10.0001 1.05005 10.0001H2.05005C2.28339 7.91672 3.14605 6.12905 4.63805 4.63705C6.13005 3.14505 7.91739 2.28272 10.0001 2.05005V1.05005C10.0001 0.766719 10.0961 0.529386 10.2881 0.338052C10.4801 0.146719 10.7174 0.0507189 11.0001 0.0500523C11.2827 0.0493856 11.5204 0.145386 11.7131 0.338052C11.9057 0.530719 12.0014 0.768052 12.0001 1.05005V2.05005C14.0834 2.28339 15.8711 3.14605 17.3631 4.63805C18.8551 6.13005 19.7174 7.91739 19.9501 10.0001H20.9501C21.2334 10.0001 21.4711 10.0961 21.6631 10.2881C21.8551 10.4801 21.9507 10.7174 21.9501 11.0001C21.9494 11.2827 21.8537 11.5204 21.6631 11.7131C21.4724 11.9057 21.2347 12.0014 20.9501 12.0001H19.9501C19.7167 14.0834 18.8544 15.8711 17.3631 17.3631C15.8717 18.8551 14.0841 19.7174 12.0001 19.9501V20.9501C12.0001 21.2334 11.9041 21.4711 11.7121 21.6631C11.5201 21.8551 11.2827 21.9507 11.0001 21.9501C10.7174 21.9494 10.4801 21.8537 10.2881 21.6631C10.0961 21.4724 10.0001 21.2347 10.0001 20.9501ZM11.0001 18.0001C12.9334 18.0001 14.5834 17.3167 15.9501 15.9501C17.3167 14.5834 18.0001 12.9334 18.0001 11.0001C18.0001 9.06672 17.3167 7.41672 15.9501 6.05005C14.5834 4.68339 12.9334 4.00005 11.0001 4.00005C9.06672 4.00005 7.41672 4.68339 6.05005 6.05005C4.68339 7.41672 4.00005 9.06672 4.00005 11.0001C4.00005 12.9334 4.68339 14.5834 6.05005 15.9501C7.41672 17.3167 9.06672 18.0001 11.0001 18.0001ZM11.0001 15.0001C9.90005 15.0001 8.95839 14.6084 8.17505 13.8251C7.39172 13.0417 7.00005 12.1001 7.00005 11.0001C7.00005 9.90005 7.39172 8.95839 8.17505 8.17505C8.95839 7.39172 9.90005 7.00005 11.0001 7.00005C12.1001 7.00005 13.0417 7.39172 13.8251 8.17505C14.6084 8.95839 15.0001 9.90005 15.0001 11.0001C15.0001 12.1001 14.6084 13.0417 13.8251 13.8251C13.0417 14.6084 12.1001 15.0001 11.0001 15.0001ZM11.0001 13.0001C11.5501 13.0001 12.0211 12.8044 12.4131 12.4131C12.8051 12.0217 13.0007 11.5507 13.0001 11.0001C12.9994 10.4494 12.8037 9.97872 12.4131 9.58805C12.0224 9.19739 11.5514 9.00139 11.0001 9.00005C10.4487 8.99872 9.97805 9.19472 9.58805 9.58805C9.19805 9.98139 9.00205 10.4521 9.00005 11.0001C8.99805 11.5481 9.19405 12.0191 9.58805 12.4131C9.98205 12.8071 10.4527 13.0027 11.0001 13.0001Z" fill="#434343"/>
@@ -15,10 +13,20 @@
                 {{jobOffer.lieuTravail.libelle}}
             </span>
     </div>
-    <span class="text-[14px] leading-[22px]">{{jobOffer.description | truncTitle:240}}</span>
-    <span class="text-[14px] text-[#bababa] font-semibold">{{jobOffer.dateCreation | toElapsedDays}}</span>
-    <span class="text-[14px]">{{jobOffer.salaire.libelle ?? "Salaire non communiqué"}}</span>
-    <button class="bg-[#3DA8A8] shadow-md shadow-[hsla(161,50%,50%,25%)] text-[#ffffff] text-[12px] font-semibold rounded-full ml-auto pt-[8px] pb-[7px] px-[15px] w-fit hover:bg-[#0b64d9] hover:cursor-pointer">Voir l'Offre</button>
+    <span class="text-[14px] leading-[22px] mt-[4px]">{{jobOffer.description | truncTitle:240}}</span>
+    <span class="text-[14px] text-[#bababa] italic">{{jobOffer.dateCreation | toElapsedDays}}</span>
+    <div class="flex flex-row mt-[4px]">
+        <span class="flex flex-row gap-x-[9px] text-[14px] items-center bg-[#eff2f6aa] border-1 border-[#7644BBcc] pl-[7px] pr-[12px] py-[6px] w-fit rounded-full">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_8_19)">
+                    <path d="M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 11H12M15 8C14.3704 7.16047 13.4925 6.54033 12.4908 6.22743C11.4892 5.91453 10.4144 5.92473 9.41886 6.25658C8.4233 6.58844 7.55739 7.22512 6.94379 8.07645C6.33019 8.92778 6 9.95059 6 11C6 12.0494 6.33019 13.0722 6.94379 13.9236C7.55739 14.7749 8.4233 15.4116 9.41886 15.7434C10.4144 16.0753 11.4892 16.0855 12.4908 15.7726C13.4925 15.4597 14.3704 14.8395 15 14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+            </svg>
+            {{!jobOffer.salaire.libelle ? "N.C." : jobOffer.salaire.libelle | salaryParsing}}
+        </span>
+        <button class="bg-[#7644BBcc] min-w-[120px] ml-auto shadow-md shadow-[#7644BB44] text-[#ffffff] text-[14px] font-semibold rounded-full pt-[8px] pb-[7px] px-[15px] w-fit hover:bg-[#7644BB] hover:cursor-pointer">Voir l'Offre</button>
+    </div>
     <!--<ul class="flex flex-row text-[11px] gap-x-[6px] leading-4">
         @for(competence of jobsOffer.competences; track competence){
             <li class="border-1 border-[#99ffe0] bg-[#99ffe066] pt-[7px] pb-[5px] px-[10px] rounded-[4px]">{{competence.libelle.slice(0,20)}}</li>
