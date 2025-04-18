@@ -10,16 +10,19 @@ import { RouterLink } from '@angular/router';
 import { ThirdPartyTokenService } from '../../services/third-party-token.service';
 import { CapitalizeFirstLetterPipe } from '../../pipes/capitalize-first-letter.pipe';
 import { JobItemComponent } from './job-item/job-item.component';
+import { JobFilterBarComponent } from './job-filter-bar/job-filter-bar.component';
+import { OptionalJobsAPIGetAllParams } from '../../interfaces/jobsAPI/requests/IJobsAPIGetAllParams';
 
 @Component({
   selector: 'app-jobs-list',
-  imports: [JobItemComponent],
+  imports: [JobItemComponent, JobFilterBarComponent],
   templateUrl: './jobs-list.component.html',
   styleUrl: './jobs-list.component.css'
 })
 export class JobsListComponent implements OnInit {
 
   jobsOffers! : IJobOffer[]
+  searchParams : OptionalJobsAPIGetAllParams = {}
   // destroy$ = new Subject<void>
   private destroyRef = inject(DestroyRef)
 
@@ -44,6 +47,11 @@ export class JobsListComponent implements OnInit {
       // takeUntil(this.destroy$)
     ).subscribe(() => this.fetchJobs());*/
     this.fetchJobs()
+  }
+
+  handleFilterBarParamsChange(value : OptionalJobsAPIGetAllParams){
+    console.log("sent")
+    console.log(JSON.stringify(value))
   }
 
   /*ngOnDestroy(): void {

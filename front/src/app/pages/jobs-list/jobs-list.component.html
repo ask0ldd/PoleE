@@ -1,16 +1,5 @@
-<div class="flex flex-col w-full gap-y-[10px] pt-[15px] pb-[30px] max-w-[600px]">
-    <div class="flex flex-col w-full gap-y-[15px]">
-        <div class="flex bg-[#ffffff] rounded-[6px] h-[40px] items-center px-[15px]">Search Bar</div>
-        <div class="flex flex-row gap-x-[15px] h-[40px]">
-            <select class="bg-[#ffffff] px-[15px] rounded-[6px] shadow-[#dde8f7aa]">
-                <option value="first">First option</option>
-                <option value="second">Second option</option>
-                <option value="third">Third option</option>
-              </select>
-            <div class="flex items-center h-full bg-[#ffffff] px-[15px] rounded-[6px]">Domaine</div>
-            <div class="flex items-center h-full bg-[#ffffff] px-[15px] rounded-[6px]">Salaire</div>
-        </div>
-    </div>
+<div class="flex flex-col w-full gap-y-[13px] pt-[15px] pb-[30px]">
+    <app-job-filter-bar [filterParams]="searchParams" (filterParamsChange)="handleFilterBarParamsChange($event)"/>
     @if(jobsOffers == null || jobsOffers.length == 0) {
         <article class="flex w-full text-center">Loading...</article>
     }
@@ -20,6 +9,8 @@
         </div>
     }
     @for(jobsOffer of jobsOffers; track jobsOffer) {
-        <app-job-item [jobOffer]="jobsOffer"></app-job-item>
+        <div class="flex flex-col w-full">
+            <app-job-item [jobOffer]="jobsOffer"/>
+        </div>  
     }
 </div>
