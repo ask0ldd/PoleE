@@ -17,7 +17,7 @@ export class JobsAPIService {
   getAll(params ?: OptionalJobsAPIGetAllParams) : Observable<IJobOffer[]>{
     const url = this.buildUrlWithParams<OptionalJobsAPIGetAllParams>(
       this.baseAPIUrl,
-      { domaine : 'M18', departement : [94, 75, 77], publieeDepuis : 31, /*motsCles : ['Typescript'],*/ range : '0-50' },
+      { domaine : 'M18', departement : [94, 75, 77], publieeDepuis : 31, /*motsCles : ['Typescript'],*/ range : '0-49' },
     )
     return this.httpClient
       .get<{resultats : IJobOffer[]}>(url)

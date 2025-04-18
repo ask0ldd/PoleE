@@ -5,7 +5,7 @@
     @if(jobOffer){
         <h2 class="text-[32px] font-bold"><!--{{jobOffer.id}} - -->{{jobOffer.intitule | lowercase | capitalizeFirstLetter}}</h2>
         <div class="flex flex-row justify-between">
-            <span>{{jobOffer.entreprise.nom ?? 'Non communiqué'}}</span>
+            <span class="text-[#7644BBcc] font-semibold">{{jobOffer.entreprise.nom ?? 'Non communiqué'}}</span>
             <span>{{jobOffer.lieuTravail.libelle}}</span>
         </div>
         <span class="text-[12px]">{{jobOffer.dateCreation | toElapsedDays}}</span>
