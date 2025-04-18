@@ -1,0 +1,15 @@
+<form [formGroup]="searchForm" (ngSubmit)="handleSearchClick()" class="flex flex-col w-full gap-y-[15px]">
+    <input class="flex bg-[#ffffff] rounded-[6px] h-[36px] items-center px-[15px]" placeholder="Search for an offer..."/>
+    <div class="flex flex-row gap-x-[15px] h-[36px]">
+        <select formControlName="contrat" class="bg-[#ffffff] px-[15px] rounded-[6px] shadow-[#dde8f7aa]">
+            <option value="Contrat">Contrat</option>
+            <option value="CDI">CDI</option>
+            <option value="CDD">CDD</option>
+            <option value="Alternance">Alternance</option>
+        </select>
+        <div class="flex items-center h-full bg-[#ffffff] px-[15px] rounded-[6px]">Domaine</div>
+        <div class="flex items-center h-full bg-[#ffffff] px-[15px] rounded-[6px]">Min. Salaire</div>
+        <div class="flex items-center h-full bg-[#ffffff] px-[15px] rounded-[6px]">Max. Salaire</div>
+        <button type="submit" class="bg-[#7644BBcc] min-w-[100px] ml-auto shadow-md shadow-[#7644BB44] text-[#ffffff] text-[14px] font-semibold rounded-full pt-[8px] pb-[7px] px-[15px] w-fit hover:bg-[#7644BB] hover:cursor-pointer">Search</button>
+    </div>
+</form>
