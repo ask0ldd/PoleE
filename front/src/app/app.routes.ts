@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { JobDetailsComponent } from './pages/job-details/job-details.component';
 import { JobsListComponent } from './pages/jobs-list/jobs-list.component';
 
 export const routes: Routes = [
-    { path: 'jobs/details/:id', component: JobDetailsComponent },
+    // lazy loading
+    { path: 'jobs/details/:id', loadComponent: () => import('./pages/job-details/job-details.component').then(m => m.JobDetailsComponent) },
     { path: '', component: JobsListComponent },
 ];
