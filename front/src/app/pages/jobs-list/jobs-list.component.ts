@@ -3,26 +3,25 @@ import { JobsAPIService } from '../../services/mocks/jobs-api.service';
 import { take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import IJobOffer from '../../interfaces/jobsAPI/IJobOffer';
-import { TruncTitlePipe } from '../../pipes/trunc-title.pipe';
-import { LowerCasePipe } from '@angular/common';
-import { ToElapsedDaysPipe } from '../../pipes/to-elapsed-days.pipe';
-import { RouterLink } from '@angular/router';
 import { ThirdPartyTokenService } from '../../services/third-party-token.service';
-import { CapitalizeFirstLetterPipe } from '../../pipes/capitalize-first-letter.pipe';
 import { JobItemComponent } from './job-item/job-item.component';
 import { JobFilterBarComponent } from './job-filter-bar/job-filter-bar.component';
 import { OptionalJobsAPIGetAllParams } from '../../interfaces/jobsAPI/requests/IJobsAPIGetAllParams';
+import { DrawerComponent } from '../../components/drawer/drawer.component';
+import { marked } from 'marked';
 
 @Component({
   selector: 'app-jobs-list',
-  imports: [JobItemComponent, JobFilterBarComponent],
+  imports: [JobItemComponent, JobFilterBarComponent, DrawerComponent],
   templateUrl: './jobs-list.component.html',
   styleUrl: './jobs-list.component.css'
 })
 export class JobsListComponent implements OnInit {
 
+  drawerOpen = false
   jobsOffers! : IJobOffer[]
-  searchParams : OptionalJobsAPIGetAllParams = {}
+  activeJobOffer! : IJobOffer
+  // searchParams : OptionalJobsAPIGetAllParams = {}
   // destroy$ = new Subject<void>
   private destroyRef = inject(DestroyRef)
 
@@ -52,6 +51,13 @@ export class JobsListComponent implements OnInit {
   handleFilterBarParamsChange(value : OptionalJobsAPIGetAllParams){
     console.log("sent")
     console.log(JSON.stringify(value))
+  }
+
+  async toggleDrawer(jobId : string){
+    const offer = this.jobsOffers.find(offer => offer.id == jobId)
+    if(offer == null) return
+    this.activeJobOffer = {...offer, description : await marked(offer.description.replaceAll("***", "\n\n"))}  
+    this.drawerOpen = !this.drawerOpen
   }
 
   /*ngOnDestroy(): void {

@@ -1,5 +1,5 @@
 <div class="flex flex-col w-full gap-y-[13px] pt-[15px] pb-[30px]">
-    <app-job-filter-bar [filterParams]="searchParams" (filterParamsChange)="handleFilterBarParamsChange($event)"/>
+    <app-job-filter-bar (filterParamsChange)="handleFilterBarParamsChange($event)"/> <!-- [filterParams]="searchParams"-->
     @if(jobsOffers == null || jobsOffers.length == 0) {
         <article class="flex w-full text-center">Loading...</article>
     }
@@ -7,10 +7,11 @@
         <div class="text-right text-[14px]">
             {{jobsOffers.length}} Offers displayed.
         </div>
-    }
-    @for(jobsOffer of jobsOffers; track jobsOffer) {
-        <div class="flex flex-col w-full">
-            <app-job-item [jobOffer]="jobsOffer"/>
-        </div>  
+        <div style="flex-wrap: wrap;" class="flex flex-row w-full wrap gap-[20px]">
+            @for(jobsOffer of jobsOffers; track jobsOffer) {
+                <app-job-item (emitJob)="toggleDrawer($event)" [jobOffer]="jobsOffer"/>
+            }
+        </div>
     }
 </div>
+<app-drawer [isOpen]="this.drawerOpen" [jobOffer]="activeJobOffer" (closed)="this.drawerOpen = false"/> <!-- when closed does emit out of the drawer, set this.drawOpen to false -->
