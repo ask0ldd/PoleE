@@ -10,15 +10,39 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angul
 })
 export class JobFilterBarComponent {
 
-  @Input() filterParams : OptionalJobsAPIGetAllParams = {}
+  // @Input() filterParams : OptionalJobsAPIGetAllParams = {}
   @Output() filterParamsChange = new EventEmitter<OptionalJobsAPIGetAllParams>()
 
   searchForm = new FormGroup({
-    contrat: new FormControl('Contrat'),
+    typeContrat: new FormControl(defaultFormValues.typeContrat, { nonNullable: true }),
+    domaine: new FormControl(defaultFormValues.domaine, { nonNullable: true }),
   })
 
-  handleSearchClick(){
-    this.filterParamsChange.emit(this.filterParams)
-    console.log(this.searchForm.value.contrat)
+  private excludeNullProperties(formValue: Partial<JobSearchFormValues>): OptionalJobsAPIGetAllParams {
+    const cleanedForm: Partial<JobSearchFormValues> = { ...formValue };
+    
+    (Object.keys(cleanedForm) as Array<keyof JobSearchFormValues>).forEach(key => {
+      if (cleanedForm[key] === defaultFormValues[key]) {
+        delete cleanedForm[key];
+      }
+    })
+
+    return cleanedForm as OptionalJobsAPIGetAllParams
   }
+
+  handleSearchClick(){
+    const noNullPropertiesForm = this.excludeNullProperties(this.searchForm.getRawValue())
+    this.filterParamsChange.emit(noNullPropertiesForm)
+    // console.log(this.searchForm.value.typeContrat)
+  }
+}
+
+interface JobSearchFormValues {
+  typeContrat: string
+  domaine : string
+}
+
+const defaultFormValues : JobSearchFormValues = {
+  typeContrat : 'Contrat',
+  domaine : 'Domaine Pro.'
 }

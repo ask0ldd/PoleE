@@ -6,7 +6,7 @@ interface IJobsAPIGetAllParams{
     commune: number[];                    // e.g., "33063,31555"
     departement: number[];                // e.g., "33,31"
     distance: number;                   // e.g., 10
-    domaine: `${Letter}${number}`;                    // e.g., "G17"
+    domaine: string;                    // e.g., "G17"
     dureeContratMax: number;            // e.g., 24
     dureeContratMin: number;            // e.g., 0.5
     dureeHebdo: number;                 // e.g., 1

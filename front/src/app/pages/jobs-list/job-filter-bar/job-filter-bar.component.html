@@ -1,15 +1,46 @@
 <form [formGroup]="searchForm" (ngSubmit)="handleSearchClick()" class="flex flex-col w-full gap-y-[15px]">
-    <input class="flex bg-[#ffffff] rounded-[6px] h-[36px] items-center px-[15px]" placeholder="Search for an offer..."/>
-    <div class="flex flex-row gap-x-[15px] h-[36px]">
-        <select formControlName="contrat" class="bg-[#ffffff] px-[15px] rounded-[6px] shadow-[#dde8f7aa]">
+    <div class="flex flex-row gap-x-[15px]">
+        <input class="flex bg-[#ffffff] rounded-[6px] grow shrink w-full h-[38px] items-center px-[15px] focus:outline-[#7644BBcc]" placeholder="Search for an offer..."/>
+        <input class="flex bg-[#ffffff] rounded-[6px] grow shrink w-full h-[38px] items-center px-[15px] focus:outline-[#7644BBcc]" placeholder="Lieu de travail"/>
+        <button type="submit" class="bg-[#7644BBcc] min-w-[120px] ml-auto shadow-md shadow-[#7644BB44] text-[#ffffff] text-[14px] font-semibold rounded-full pt-[8px] pb-[7px] px-[15px] w-fit hover:bg-[#7644BB] hover:cursor-pointer">Rechercher</button>
+    </div>
+    <div class="flex flex-row gap-x-[15px] h-[38px]">
+        <select formControlName="typeContrat" class="bg-[#ffffff] px-[15px] rounded-[6px] shadow-[#dde8f7aa] focus:outline-[#7644BBcc] focus:outline-2">
+            <!--<button>Contrat</button>-->
             <option value="Contrat">Contrat</option>
             <option value="CDI">CDI</option>
             <option value="CDD">CDD</option>
-            <option value="Alternance">Alternance</option>
+            <option value="MIS">Interim</option>
+            <option value="DIN">CDI Intérimaire</option>
+            <option value="E2">Apprentissage</option>
+            <option value="FS">Professionalisation</option>
+            <option value="FV">POEI</option>
         </select>
-        <div class="flex items-center h-full bg-[#ffffff] px-[15px] rounded-[6px]">Domaine</div>
-        <div class="flex items-center h-full bg-[#ffffff] px-[15px] rounded-[6px]">Min. Salaire</div>
-        <div class="flex items-center h-full bg-[#ffffff] px-[15px] rounded-[6px]">Max. Salaire</div>
-        <button type="submit" class="bg-[#7644BBcc] min-w-[100px] ml-auto shadow-md shadow-[#7644BB44] text-[#ffffff] text-[14px] font-semibold rounded-full pt-[8px] pb-[7px] px-[15px] w-fit hover:bg-[#7644BB] hover:cursor-pointer">Search</button>
+        <select formControlName="domaine" class="bg-[#ffffff] px-[15px] rounded-[6px] shadow-[#dde8f7aa] focus:outline-[#7644BBcc] focus:outline-2">
+            <option value="Domaine Pro.">Domaine Pro.</option>
+            <option value="M">Achats / Comptabilité / Gestion</option>
+            <option value="B">Arts / Artisanat d'art</option>
+            <option value="C">Banque / Assurance</option>
+            <option value="F">Bâtiment / Travaux Publics</option>
+            <option value="D">Commerce / Vente</option>
+            <option value="E">Communication / Multimédia</option>
+            <option value="M14">Conseil / Etudes</option>
+            <option value="M13">Direction d'entreprise</option>
+            <option value="A">Espaces verts / Agriculture / Animaux</option>
+            <option value="G">Hôtellerie - Restauration / Tourisme</option>
+            <option value="C15">Immobilier</option>
+            <option value="H">Industrie</option>
+            <option value="M18">Informatique / Télécommunication</option>
+            <option value="I">Installation / Maintenance</option>
+            <option value="M17">Marketing / Stratégie commerciale</option>
+            <option value="M15">Ressources Humaines</option>
+            <option value="J">Santé</option>
+            <option value="M16">Secrétariat / Assistanat</option>
+            <option value="K">Services à la personne / à la collectivité</option>
+            <option value="L">Spectacle</option>
+            <option value="L14">Sport</option>
+            <option value="N">Transport / Logistique</option>
+        </select>
+        <input class="flex items-center h-full bg-[#ffffff] px-[15px] rounded-[6px] focus:outline-[#7644BBcc]" placeholder="Min. Salaire" />
     </div>
 </form>
