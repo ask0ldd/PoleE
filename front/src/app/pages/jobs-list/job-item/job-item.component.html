@@ -1,4 +1,4 @@
-<article [routerLink]="['/jobs/details/'+jobOffer.id]" class="flex flex-col w-full border-1 border-[#ffffffcc] shadow-[#dde8f7aa] shadow-md px-[15px] pb-[15px] pt-[8px] rounded-[6px] gap-y-[4px] bg-gradient-to-b from-[#ffffffbb] to-[#ffffff88] outline-1 outline-[#ffffff] hover:bg-[#ffffff] hover:shadow-md hover:shadow-[#7644BB39] hover:outline-1 hover:outline-[#7644BBcc] hover:cursor-pointer">
+<article (click)="emitActiveJobId()" class="flex flex-col border-1 border-[#ffffffcc] shadow-[#dde8f7aa] shadow-md px-[15px] pb-[15px] pt-[8px] rounded-[6px] gap-y-[4px] bg-gradient-to-b from-[#ffffffbb] to-[#ffffff88] outline-1 outline-[#ffffff] hover:bg-[#ffffff] hover:shadow-xl hover:shadow-[#7644BB20] hover:outline-1 hover:outline-[#7644BBcc] hover:cursor-pointer"> <!-- [routerLink]="['/jobs/details/'+jobOffer.id]" -->
     <h2 class="m-[0] text-[22px] font-bold leading-7.5 mt-[1px]">{{jobOffer.intitule | lowercase | capitalizeFirstLetter}}</h2>
     <div class="flex flex-row gap-x-[10px] text-[14px] w-full mt-[4px]">
             <span class="flex gap-x-[8px] text-[#7644BBcc] font-semibold">                
@@ -14,9 +14,9 @@
             </span>
     </div>
     <span class="text-[14px] leading-[22px] mt-[4px]">{{jobOffer.description | truncTitle:240}}</span>
-    <span class="text-[14px] text-[#bababa] italic">{{jobOffer.dateCreation | toElapsedDays}}</span>
-    <div class="flex flex-row mt-[4px]">
-        <span class="flex flex-row gap-x-[9px] text-[14px] items-center bg-[#eff2f6aa] border-1 border-[#7644BBcc] pl-[7px] pr-[12px] py-[6px] w-fit rounded-full">
+    <span class="text-[14px] text-[#bababa] italic mt-[4px]">{{jobOffer.dateCreation | toElapsedDays}}</span>
+    <div class="flex flex-row mt-[8px]">
+        <span class="flex flex-row gap-x-[9px] text-[14px] items-center bg-[var(--primary-color)] border-1 border-[#7644BBcc] pl-[7px] pr-[12px] py-[6px] w-fit rounded-full">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_8_19)">
                     <path d="M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
