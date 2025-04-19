@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
+body {
+  --primary-color: #eff2f6;
+}
+
 main {
   font-family: "Cabin", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  width: 100%;
 
   .jobsListItems {
     box-shadow: 0px 4px 8px rgba(20, 20, 50, 0.15);
