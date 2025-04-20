@@ -1,0 +1,12 @@
+.animated-div {
+  width: 60%;
+  transform: translateX(200px);
+  animation: expand 0.35s ease-out forwards;
+  box-shadow: -4px 0 8px #00000033;
+}
+
+@keyframes expand {
+  to {
+    transform: translateX(0);
+  }
+}
