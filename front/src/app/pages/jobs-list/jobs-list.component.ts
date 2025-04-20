@@ -9,10 +9,11 @@ import { JobFilterBarComponent } from './job-filter-bar/job-filter-bar.component
 import { OptionalJobsAPIGetAllParams } from '../../interfaces/jobsAPI/requests/IJobsAPIGetAllParams';
 import { DrawerComponent } from '../../components/drawer/drawer.component';
 import { marked } from 'marked';
+import { JobOfferComponent } from '../../components/drawer/job-offer/job-offer.component';
 
 @Component({
   selector: 'app-jobs-list',
-  imports: [JobItemComponent, JobFilterBarComponent, DrawerComponent],
+  imports: [JobItemComponent, JobFilterBarComponent, DrawerComponent, JobOfferComponent],
   templateUrl: './jobs-list.component.html',
   styleUrl: './jobs-list.component.css'
 })
@@ -21,8 +22,6 @@ export class JobsListComponent implements OnInit {
   drawerOpen = false
   jobsOffers! : IJobOffer[]
   activeJobOffer! : IJobOffer
-  // searchParams : OptionalJobsAPIGetAllParams = {}
-  // destroy$ = new Subject<void>
   private destroyRef = inject(DestroyRef)
 
   constructor(private jobsAPIService : JobsAPIService, private thirdPartyTokenService : ThirdPartyTokenService){ }
@@ -31,20 +30,12 @@ export class JobsListComponent implements OnInit {
     this.jobsAPIService.getAll().pipe(
       take(1),
       takeUntilDestroyed(this.destroyRef),
-      // finalize(() => console.log('Observable fetch unsubscribed'))
-      // takeUntil(this.destroy$)
     ).subscribe(
       offers => this.jobsOffers = offers/*.filter(offer => offer.description.toLowerCase().includes("typescript"))*/
     )
   }
 
   ngOnInit(): void {
-    /*this.thirdPartyTokenService.token$.pipe(
-      filter(token => !!token), // Only allows non-null/undefined tokens to go through
-      take(1),
-      takeUntilDestroyed(this.destroyRef)
-      // takeUntil(this.destroy$)
-    ).subscribe(() => this.fetchJobs());*/
     this.fetchJobs()
   }
 
@@ -59,10 +50,4 @@ export class JobsListComponent implements OnInit {
     this.activeJobOffer = {...offer, description : await marked(offer.description.replaceAll("***", "\n\n"))}  
     this.drawerOpen = !this.drawerOpen
   }
-
-  /*ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }*/
-  
 }
