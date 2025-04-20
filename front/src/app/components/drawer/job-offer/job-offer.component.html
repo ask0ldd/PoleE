@@ -1,0 +1,40 @@
+<div class="flex flex-row w-full bg-white px-[60px] py-[15px] min-h-[100vh] gap-x-[60px]">
+    @if(!jobOffer){
+        <span class="flex w-full text-center">Loading...</span>
+    }
+    @if(jobOffer){
+        <div class="flex flex-col w-[60%] gap-y-[15px]">
+            <h2 class="text-[32px] font-bold"><!--{{jobOffer.id}} - -->{{jobOffer.intitule | lowercase | capitalizeFirstLetter}}</h2>
+            <div class="flex flex-row justify-between">
+                <span class="text-[#7644BBcc] font-semibold">{{jobOffer.entreprise.nom ?? 'Non communiqué'}}</span>
+                <span>{{jobOffer.lieuTravail.libelle}}</span>
+            </div>
+            <span class="text-[12px]">{{jobOffer.dateCreation | toElapsedDays}}</span>
+            <span class="flex flex-col gap-y-[15px]" [innerHTML]="jobOffer.description"></span> <!-- auto sanitized by angular -->
+            <span class="text-[12px]">{{jobOffer.salaire.libelle}}</span>
+            <div class="bg-[#ffffff] border-1 border-[#dadce0] w-fit p-[10px] rounded-[6px] text-[14px]">{{jobOffer.experienceLibelle}}</div>
+        </div>
+        <div class="flex flex-col w-[40%]">
+            <table class="w-full border-1 border-[#9999aa] border-collapse text-[14px]">
+                <tr class="flex w-full bg-[var(--primary-color)] py-[5px] px-[12px]">
+                    <td class="w-[33%]">Durée de Travail</td><td class="w-[67%]">{{jobOffer.dureeTravailLibelleConverti}}</td>
+                </tr>
+                <tr class="flex w-full bg-[var(--secondary-color)] py-[5px] px-[12px]">
+                    <td class="w-[33%]">Nature du Contrat</td><td class="w-[67%]">{{jobOffer.natureContrat}}</td>
+                </tr>
+                <tr class="flex w-full bg-[var(--primary-color)] py-[5px] px-[12px]">
+                    <td class="w-[33%]">Activité</td><td class="w-[67%]">{{jobOffer.secteurActiviteLibelle}}</td>
+                </tr>
+                <tr class="flex w-full bg-[var(--secondary-color)] py-[5px] px-[12px]">
+                    <td class="w-[33%]">Contract</td><td class="w-[67%]">{{jobOffer.typeContratLibelle}}</td>
+                </tr>
+                <tr class="flex w-full bg-[var(--primary-color)] py-[5px] px-[12px]">
+                    <td class="w-[33%]">Nombre de Postes</td><td class="w-[67%]">{{jobOffer.nombrePostes}}</td>
+                </tr>
+                <tr class="flex w-full bg-[var(--primary-color)] py-[5px] px-[12px]">
+                    <td class="w-[33%]">Qualification</td><td class="w-[67%]">{{jobOffer.qualificationLibelle}}</td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
