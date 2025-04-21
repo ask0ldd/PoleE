@@ -14,6 +14,7 @@
         </div>
     }
 </div>
-<app-drawer [isOpen]="this.drawerOpen" (closed)="this.drawerOpen = false"> <!-- when closed does emit out of the drawer, set this.drawOpen to false -->
+<!-- when closed does emit out of the drawer, set this.drawOpen to false -->
+<app-drawer [isOpen]="this.drawerOpen" (closeDrawer)="this.drawerOpen = false"> 
     <app-job-offer [jobOffer]="activeJobOffer"/>
 </app-drawer>

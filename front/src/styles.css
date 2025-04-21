@@ -3,6 +3,10 @@
 body {
   --primary-color: #eff2f6;
   --secondary-color: #dde3eb;
+
+  &:has(dialog[open]) {
+    overflow: hidden;
+  }
 }
 
 main {
