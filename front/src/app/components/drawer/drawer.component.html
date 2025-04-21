@@ -1,8 +1,6 @@
-@if(isOpen){
-    <div (click)="handleClose()" class="flex w-full h-[100vh] fixed left-0 top-0 bg-[#00000044] overflow-y-scroll">
-        <div (click)="$event.stopPropagation()" class="flex flex-col ml-auto w-[60%] h-full bg-[#ffffff] animated-div">
-            <button class="cursor-pointer" (click)="handleClose()">✕</button>
-            <ng-content></ng-content>
-        </div>
+<dialog #drawerDialog (click)="handleClose()" class="bg-[#f8fafb] min-h-[100vh] h-[100vh] animated-div ml-auto">
+    <div id="drawBody" class="flex flex-col h-[100%]" (click)="$event.stopPropagation()">
+        <button class="cursor-pointer" (click)="handleClose()">✕</button>
+        <ng-content></ng-content>
     </div>
-}
+</dialog>

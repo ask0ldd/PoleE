@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, viewChild, ViewChild, ViewContainerRef } from '@angular/core';
 
 @Component({
   selector: 'app-drawer',
@@ -9,7 +9,9 @@ import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef } f
 export class DrawerComponent {
 
   @Input() isOpen! : boolean
-  @Output() closed = new EventEmitter<void>() // emitted when clicking on the close button
+  @Output() closeDrawer = new EventEmitter<void>() // emitted when clicking on the close button
+
+  @ViewChild('drawerDialog') drawerDialog! : ElementRef
 
   // dealing with child component
   /*@Input() childComponentType: any;
@@ -26,8 +28,15 @@ export class DrawerComponent {
     this.container.createComponent(this.childComponentType)
   }*/
 
+  ngOnChanges() {
+    if(this.isOpen) {
+      (this.drawerDialog.nativeElement as HTMLDialogElement).showModal()
+    }
+  }
+
   handleClose(){
-    this.closed.emit()
+    (this.drawerDialog.nativeElement as HTMLDialogElement).close()
+    this.closeDrawer.emit()
   }
 
 }
