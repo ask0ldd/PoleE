@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { JobsAPIService } from '../../services/mocks/jobs-api.service';
-import { take } from 'rxjs';
+import { catchError, of, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import IJobOffer from '../../interfaces/jobsAPI/IJobOffer';
 import { ThirdPartyTokenService } from '../../services/third-party-token.service';
@@ -23,6 +23,7 @@ export class JobsListComponent implements OnInit {
   jobsOffers! : IJobOffer[]
   activeJobOffer! : IJobOffer
   private destroyRef = inject(DestroyRef)
+  errorMessage : string = ""
 
   constructor(private jobsAPIService : JobsAPIService, private thirdPartyTokenService : ThirdPartyTokenService){ }
 
@@ -31,12 +32,23 @@ export class JobsListComponent implements OnInit {
       take(1),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe(
-      offers => this.jobsOffers = offers/*.filter(offer => offer.description.toLowerCase().includes("typescript"))*/
-    )
+      {
+        next : offers => this.jobsOffers = offers,
+        error : error => {
+          console.log(error.message)
+          this.errorMessage = error.message
+          this.jobsOffers = []
+        }
+      }
+    )/*.filter(offer => offer.description.toLowerCase().includes("typescript"))*/
   }
 
   ngOnInit(): void {
     this.fetchJobs()
+  }
+
+  handleFetchAllError(err : Error, ){
+
   }
 
   handleFilterBarParamsChange(value : OptionalJobsAPIGetAllParams){
