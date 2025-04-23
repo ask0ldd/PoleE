@@ -18,7 +18,7 @@ export class AppComponent/* implements OnInit, OnDestroy*/{
 
   subscription! : Subscription
 
-  constructor(private jobsAPI: JobsAPIService, private thirdPartyTokenService : ThirdPartyTokenService){ }
+  constructor(){ }
 
   ngOnInit(): void {
     // retrieve the user id from the claims into the jwt

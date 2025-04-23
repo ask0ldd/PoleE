@@ -7,7 +7,7 @@ const TOKEN_REFRESH_THRESHOLD = 5000
 
 export const jobsAPIInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next : HttpHandlerFn) : Observable<HttpEvent<unknown>> => {
 
-  const thirdPartyTokenService = inject(ThirdPartyTokenService);
+  const thirdPartyTokenService = inject(ThirdPartyTokenService)
 
   // Skip interception for non-JobsAPI requests
   if (!req.url.includes("/jobsapi/")) {
@@ -29,8 +29,8 @@ export const jobsAPIInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>,
     filter(token => token != null),
     take(1),
     catchError(error => {
-      console.error('Failed to fetch access token:', error);
-      return of(null);
+      console.error('Failed to fetch access token:', error)
+      return of(null)
     }),
     switchMap(token => {
       const requestToForward = token 
