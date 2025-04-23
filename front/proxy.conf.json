@@ -16,5 +16,23 @@
       "pathRewrite": {
         "^/jobsapi": ""
       }
+    },
+    "/hf": {
+      "target": "https://huggingface.co",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug",
+      "pathRewrite": {
+        "^/hf": ""
+      }
+    },
+    "/wiki" :{
+      "target": "https://commons.wikimedia.org",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug",
+      "pathRewrite": {
+        "^/wiki": ""
+      }
     }
 }
