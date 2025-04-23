@@ -1,15 +1,17 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { JobsAPIService } from '../../services/mocks/jobs-api.service';
-import { catchError, of, take } from 'rxjs';
+import { take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import IJobOffer from '../../interfaces/jobsAPI/IJobOffer';
-import { ThirdPartyTokenService } from '../../services/third-party-token.service';
 import { JobItemComponent } from './job-item/job-item.component';
 import { JobFilterBarComponent } from './job-filter-bar/job-filter-bar.component';
 import { OptionalJobsAPIGetAllParams } from '../../interfaces/jobsAPI/requests/IJobsAPIGetAllParams';
 import { DrawerComponent } from '../../components/drawer/drawer.component';
 import { marked } from 'marked';
 import { JobOfferComponent } from '../../components/drawer/job-offer/job-offer.component';
+import { WhisperService } from '../../services/whisper.service';
+import { TTSService } from '../../services/tts.service';
+import { LlmService } from '../../services/llm.service';
 
 @Component({
   selector: 'app-jobs-list',
@@ -25,7 +27,13 @@ export class JobsListComponent implements OnInit {
   private destroyRef = inject(DestroyRef)
   errorMessage : string = ""
 
-  constructor(private jobsAPIService : JobsAPIService, private thirdPartyTokenService : ThirdPartyTokenService){ }
+  constructor(
+    private jobsAPIService : JobsAPIService,
+    private whisperService : WhisperService,
+    private ttsService : TTSService,
+    private llmService : LlmService,
+    // private indexedDBStorageService : IndexedDBStorageService,
+  ){ }
 
   fetchJobs(){
     this.jobsAPIService.getAll().pipe(
@@ -49,6 +57,19 @@ export class JobsListComponent implements OnInit {
 
   handleFetchAllError(err : Error, ){
 
+  }
+
+  async handleDownloadModel(){
+    console.log("download model")
+    this.llmService.generate()
+    // this.whisperService.generate()
+    /*
+    console.log("download model")
+    const response = await fetch("hf/onnx-community/gemma-3-1b-it-ONNX/resolve/main/onnx/model_q4.onnx");
+    if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`);
+    const arrayBuffer = await response.arrayBuffer();
+    this.indexedDBStorageService.storeFile("gemma.onnx", arrayBuffer)
+    */
   }
 
   handleFilterBarParamsChange(value : OptionalJobsAPIGetAllParams){
