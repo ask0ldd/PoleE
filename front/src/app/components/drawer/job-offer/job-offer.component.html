@@ -10,6 +10,9 @@
                 <span>{{jobOffer.lieuTravail.libelle}}</span>
             </div>
             <span class="text-[12px]">{{jobOffer.dateCreation | toElapsedDays}}</span>
+            @if(summarizedOffer != ""){
+                <span class="text-[12px]" innerText="{{summarizedOffer}}"></span>
+            }
             <span class="flex flex-col gap-y-[15px]" [innerHTML]="jobOffer.description"></span> <!-- auto sanitized by angular -->
             <span class="text-[12px]">{{jobOffer.salaire.libelle}}</span>
             <div class="bg-[#ffffff] border-1 border-[#dadce0] w-fit p-[10px] rounded-[6px] text-[14px]">{{jobOffer.experienceLibelle}}</div>
