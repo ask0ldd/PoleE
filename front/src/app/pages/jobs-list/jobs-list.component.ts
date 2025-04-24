@@ -61,7 +61,7 @@ export class JobsListComponent implements OnInit {
 
   async handleDownloadModel(){
     console.log("download model")
-    this.llmService.generate()
+    // this.llmService.generate()
     // this.whisperService.generate()
     /*
     console.log("download model")
