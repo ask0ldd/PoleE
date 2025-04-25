@@ -4,7 +4,7 @@ import { ToElapsedDaysPipe } from "../../../pipes/to-elapsed-days.pipe";
 import { LowerCasePipe } from '@angular/common';
 import { CapitalizeFirstLetterPipe } from '../../../pipes/capitalize-first-letter.pipe';
 import { LlmService } from '../../../services/llm.service';
-import { Subscription } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 
 @Component({
   selector: 'app-job-offer',
@@ -20,8 +20,8 @@ export class JobOfferComponent implements OnInit, OnDestroy, OnChanges{
   constructor(private llmService : LlmService){ }
 
   ngOnInit(){
-    this.sub = this.llmService.output$.subscribe(gen => this.summarizedOffer = gen == "" ? "" : JSON.stringify(gen))
-    if(this.jobOffer) this.llmService.generate(this.jobOffer.description)
+    this.sub = this.llmService.output$.pipe(tap(v => console.log(v))).subscribe(gen => this.summarizedOffer = gen/* == "" ? "" : JSON.stringify(gen)*/)
+    // if(this.jobOffer) this.llmService.generate(this.jobOffer.description)
   }
 
   ngOnChanges() {

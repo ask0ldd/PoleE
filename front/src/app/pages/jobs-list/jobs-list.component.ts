@@ -29,9 +29,9 @@ export class JobsListComponent implements OnInit {
 
   constructor(
     private jobsAPIService : JobsAPIService,
-    private whisperService : WhisperService,
+    /*private whisperService : WhisperService,
     private ttsService : TTSService,
-    private llmService : LlmService,
+    private llmService : LlmService,*/
     // private indexedDBStorageService : IndexedDBStorageService,
   ){ }
 
@@ -60,11 +60,9 @@ export class JobsListComponent implements OnInit {
   }
 
   async handleDownloadModel(){
-    console.log("download model")
     // this.llmService.generate()
     // this.whisperService.generate()
     /*
-    console.log("download model")
     const response = await fetch("hf/onnx-community/gemma-3-1b-it-ONNX/resolve/main/onnx/model_q4.onnx");
     if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`);
     const arrayBuffer = await response.arrayBuffer();
