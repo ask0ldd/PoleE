@@ -2,25 +2,21 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { FavoritesModule } from './jobs/favorites/favorites.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { UsersService } from './users/users.service';
+import { UsersModule } from './users/users.module';
+import { DBModule } from './db.module';
+import { StaticServerModule } from './static-server.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      serveRoot: '/static',
-      rootPath: join(__dirname, '..', 'static'),
-    }),
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'database.sqlite',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'], // import all entities across the project
-      synchronize: true,
-    }),
-    FavoritesModule
+    StaticServerModule,
+    DBModule,
+    FavoritesModule,
+    UsersModule,
+    AuthModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UsersService],
 })
 export class AppModule {}
