@@ -20,12 +20,14 @@ export class JobOfferComponent implements OnInit, OnDestroy, OnChanges{
   constructor(private llmService : LlmService){ }
 
   ngOnInit(){
-    this.sub = this.llmService.output$.pipe(tap(v => console.log(v))).subscribe(gen => this.summarizedOffer = gen/* == "" ? "" : JSON.stringify(gen)*/)
+    this.sub = this.llmService.output$
+      .pipe(tap(v => console.log(new Date().toISOString(), ': ', v)))
+      .subscribe(gen => this.summarizedOffer = gen/* == "" ? "" : JSON.stringify(gen)*/)
     // if(this.jobOffer) this.llmService.generate(this.jobOffer.description)
   }
 
   ngOnChanges() {
-    if(this.jobOffer) this.llmService.generate(this.jobOffer.description)
+    // if(this.jobOffer && this.llmService.isServiceBusy() == false) this.llmService.generate(this.jobOffer.description)
   }
 
   ngOnDestroy(): void {

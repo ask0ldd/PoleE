@@ -14,9 +14,9 @@ env.localModelPath = 'http://localhost:3000/static/model'
 })
 export class LlmService {
 
-  outputSubject = new Subject<string>()
+  private outputSubject = new Subject<string>()
   output$ = this.outputSubject.asObservable()
-  isBusy = false
+  private isBusy = false
 
   private generator : TextGenerationPipeline | null = null
   private conversation = new Conversation("You are a helpful assistant. Your goal is to summarize as a list of bullet points any text the user sends you.")
@@ -25,15 +25,15 @@ export class LlmService {
     if(!progress.status) return
     if(progress.status == "initiate") {
       this.isBusy = true
-      console.log("initiate")
+      console.log("initiate", progress.name)
     }
     if(progress.status == "done") {
       this.isBusy = false
-      console.log("done")
+      console.log("done", progress.name)
     }
     if(progress.status == "ready") {
       this.isBusy = false
-      console.log("ready")
+      console.log("ready", progress.task, progress.model)
     }
   }
 
@@ -52,6 +52,10 @@ export class LlmService {
     )
   }
 
+  isServiceBusy(){
+    return this.isBusy
+  }
+
   async generate(description : string) : Promise<void> {
     try{
       console.log("generate + busy : ", this.isBusy)
@@ -66,7 +70,7 @@ export class LlmService {
       this.conversation.setUserMessage(`Text to summarize : ${description}`)
 
       this.isBusy = true // !! should interrupt / give choice?
-      const generatedData = await this.generator(this.conversation.get(), { max_new_tokens: 128, /*do_sample: false */})
+      const generatedData = await this.generator(this.conversation.get(), { max_new_tokens: 128, use_cache : true, /*do_sample: false */})
 
       this.isBusy = false
 
