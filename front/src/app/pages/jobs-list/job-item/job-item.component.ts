@@ -19,4 +19,9 @@ export class JobItemComponent {
   emitActiveJobId(){
     this.emitJob.emit(this.jobOffer.id)
   }
+
+  handleFavClick(event : MouseEvent){
+    event.stopPropagation()
+    event.preventDefault()
+  }
 }
