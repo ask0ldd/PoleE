@@ -12,10 +12,11 @@ import { JobOfferComponent } from '../../components/drawer/job-offer/job-offer.c
 import { WhisperService } from '../../services/whisper.service';
 import { TTSService } from '../../services/tts.service';
 import { LlmService } from '../../services/llm.service';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
   selector: 'app-jobs-list',
-  imports: [JobItemComponent, JobFilterBarComponent, DrawerComponent, JobOfferComponent],
+  imports: [JobItemComponent, JobFilterBarComponent, DrawerComponent, JobOfferComponent, HeaderComponent],
   templateUrl: './jobs-list.component.html',
   styleUrl: './jobs-list.component.css'
 })
