@@ -8,6 +8,6 @@ import * as bcrypt from 'bcrypt';
 export class AppService {
   constructor(private readonly usersService: UsersService) {
     const SALT_ROUNDS = 10;
-    this.usersService.create(new CreateUserDto({username : "ced", email : "maria@yc.com", password : bcrypt.hashSync('guess', SALT_ROUNDS)}))
+    this.usersService.create(new CreateUserDto({username : "maria", email : "maria@yc.com", password : bcrypt.hashSync('guess', SALT_ROUNDS)}))
   }
 }
