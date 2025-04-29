@@ -9,9 +9,6 @@ import { OptionalJobsAPIGetAllParams } from '../../interfaces/jobsAPI/requests/I
 import { DrawerComponent } from '../../components/drawer/drawer.component';
 import { marked } from 'marked';
 import { JobOfferComponent } from '../../components/drawer/job-offer/job-offer.component';
-import { WhisperService } from '../../services/whisper.service';
-import { TTSService } from '../../services/tts.service';
-import { LlmService } from '../../services/llm.service';
 import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
