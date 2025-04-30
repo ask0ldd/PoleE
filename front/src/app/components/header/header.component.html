@@ -1,11 +1,11 @@
-<header class="flex justify-between h-[70px] w-full items-center">
+<header class="flex flex-row justify-between h-[70px] items-center w-full">
     <ul class="flex gap-x-[40px] font-[18px] h-full items-center">
-        <li>Jobs List</li>
+        <li routerLink="/">Jobs List</li>
         <li>Profile</li>
         <li>Resumes</li>
         <li>Cover Letters</li>
     </ul>
-    <button (click)="handleLogin()" class="flex justify-between text-[#ffffff] font-semibold items-center h-[40px] bg-[#7644BBcc] px-[25px] rounded-full hover:cursor-pointer shadow-md shadow-[#7644BB44]">
+    <button routerLink="/login" class="flex justify-between text-[#ffffff] font-semibold items-center h-[40px] bg-[#7644BBcc] px-[25px] rounded-full hover:cursor-pointer shadow-md shadow-[#7644BB44]">
         Connexion
     </button>
 </header>

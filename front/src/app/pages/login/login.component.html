@@ -1,10 +1,10 @@
-<div class="flex flex-col w-full]">
+<div class="flex flex-col w-full items-center">
     <app-header/>
-    <form [formGroup]="loginForm" (ngSubmit)="handleLogin()" class="flex flex-col w-full gap-y-[15px]">
+    <form [formGroup]="loginForm" (ngSubmit)="handleLogin()" class="flex flex-col w-full gap-y-[15px] mt-[80px] max-w-[600px] border-1 border-[#d0dceccc] p-[30px] rounded-[12px]">
         <label for="username" id="usernameLabel">Username</label>
         <input formControlName="username" id="username" aria-labelledby="usernameLabel" type="text" class="flex items-center h-full bg-[#ffffff] border-1 border-[#d0dceccc] px-[15px] rounded-[6px] focus:outline-[#7644BBcc]" placeholder="Username"/>
         <label for="password" id="passwordLabel">Password</label>
         <input formControlName="password" id="password" aria-labelledby="passwordLabel" type="password" class="flex items-center h-full bg-[#ffffff] border-1 border-[#d0dceccc] px-[15px] rounded-[6px] focus:outline-[#7644BBcc]" placeholder="Password"/>
-        <button class="flex flex-row w-full justify-between items-center text-[#ffffff] font-semibold h-[40px] bg-[#7644BBcc] px-[25px] rounded-full hover:cursor-pointer shadow-md shadow-[#7644BB44]">Login</button>
+        <button class="flex flex-row w-full justify-center items-center text-[#ffffff] font-semibold mt-[20px] h-[40px] bg-[#7644BBcc] px-[25px] rounded-full hover:cursor-pointer shadow-md shadow-[#7644BB44]">Login</button>
     </form>
 </div>
