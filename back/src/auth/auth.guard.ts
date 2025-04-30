@@ -25,6 +25,7 @@ export class AuthGuard implements CanActivate {
         }
 
         try {
+            // expiration verified by default
             const payload = await this.jwtService.verify(
                 token,
                 {
@@ -34,9 +35,15 @@ export class AuthGuard implements CanActivate {
             console.log(payload)
             // 💡 We're assigning the payload to the request object here
             // so that we can access it in our route handlers
-            request['user'] = payload
-        } catch {
-            throw new UnauthorizedException()
+            request['JwtUser'] = payload
+        } catch (error) {
+            // Handle specific JWT errors
+            if (error instanceof Error) {
+                throw new UnauthorizedException(
+                    this.mapJwtErrorToMessage(error)
+                )
+            }
+            throw new UnauthorizedException('Invalid token')
         }
         
         return true
@@ -45,5 +52,18 @@ export class AuthGuard implements CanActivate {
     private extractTokenFromHeader(request: Request): string | undefined {
         const [type, token] = request.headers.authorization?.split(' ') ?? []
         return type === 'Bearer' ? token : undefined
+    }
+
+    private mapJwtErrorToMessage(error: Error): string {
+        switch (error.name) {
+            case 'TokenExpiredError':
+                return 'Token expired'
+            case 'JsonWebTokenError':
+                return 'Malformed token'
+            case 'NotBeforeError':
+                return 'Token not yet valid'
+            default:
+                return 'Invalid token'
+        }
     }
 }

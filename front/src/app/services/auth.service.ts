@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import IAuthLoginParams from '../interfaces/jobsAPI/requests/IAuthLoginParams';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { catchError, map, Observable, of } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import IAuthLoginResponse from '../interfaces/jobsAPI/responses/IAuthLoginResponse';
 
 @Injectable({
@@ -19,12 +19,17 @@ export class AuthService {
     // check length
     const body = new HttpParams()
       .set('username', username)
-      .set('password', password) // !!! encode wuth bcrypt
+      .set('password', password)
 
     return this.http
       .post<IAuthLoginResponse>(this.loginUrl, body, {headers : this.headers})
       .pipe(
-        map(x => x.token)
+        tap(token => this.setToken(token.token)),
+        map(response => response.token)
       )
+  }
+
+  setToken(token : string){
+    localStorage.setItem("token", token)
   }
 }
