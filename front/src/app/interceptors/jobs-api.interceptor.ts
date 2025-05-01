@@ -1,5 +1,5 @@
 import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
-import { catchError, filter, Observable, of, switchMap, take, tap } from 'rxjs';
+import { catchError, filter, Observable, of, switchMap, take } from 'rxjs';
 import { inject } from '@angular/core';
 import { ThirdPartyTokenService } from '../services/third-party-token.service';
 
@@ -34,8 +34,8 @@ export const jobsAPIInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>,
     }),
     switchMap(token => {
       const requestToForward = token 
-      ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } })
-      : req
+        ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } })
+        : req
       return next(requestToForward)
     })
   );
