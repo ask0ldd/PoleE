@@ -14,10 +14,10 @@ export class AuthService {
 
         const user = await this.usersService.findByUsername(username)
 
-        if(!user?.password) throw new Error("User has no password")
+        if(!user) throw new UnauthorizedException("User can't be found.")
 
         if (!this.comparePasswords(pass, user.password)) {
-            throw new UnauthorizedException()
+            throw new UnauthorizedException("Invalid password.")
         }
 
         const payload = { 
