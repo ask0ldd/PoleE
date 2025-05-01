@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { AuthService } from '../../services/auth.service';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +17,10 @@ export class LoginComponent {
     username: new FormControl("maria", { nonNullable: true }),
     password: new FormControl("guess", { nonNullable: true }),
   })
+  
+  error : string | null = null
 
-  constructor(private authService : AuthService) {}
+  constructor(private authService : AuthService, private router: Router) {}
 
   handleLogin(){
     const username = this.loginForm.get("username")?.value
@@ -24,20 +28,26 @@ export class LoginComponent {
     if(!username || !password) return
     this.authService.login({username, password}).subscribe({
       next: token => console.log(token),
-      error: err => {
-        if (err.status === 401) {
-          console.error('Invalid credentials');
-        } else if (err.status === 0) {
-          console.error('Network error: Unable to reach server');
-        } else {
-          console.error('Login failed:', err.message);
-        }
-      }
+      error: (err) => this.handleLoginError(err)
     })
   }
-}
 
-interface loginFormValues {
-  username: string
-  password : string
+  handleLoginError(err : HttpErrorResponse){
+    let errorMessage = ""
+    switch(err.status){
+      case 401 : 
+        errorMessage = 'Invalid credentials'
+        this.error = errorMessage
+        console.log()
+        return console.error(errorMessage)
+      case 0 : 
+        errorMessage = 'Invalid credentials'
+        this.error = errorMessage
+        return console.error(errorMessage)
+      default :
+        errorMessage = 'Login failed:' + err.message
+        this.error = errorMessage
+        return console.error(errorMessage)
+    }
+  }
 }
