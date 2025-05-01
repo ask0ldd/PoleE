@@ -10,6 +10,6 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class HeaderComponent {
 
-  constructor(private authService : AuthService, private router: Router) { }
+  constructor(private authService : AuthService) { }
 
 }
