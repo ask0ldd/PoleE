@@ -4,6 +4,7 @@ import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { AuthGuard } from './auth.guard';
 import { SignInDto } from './dto/sign-in.dto';
+import { RegisterDto } from './dto/register.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -16,11 +17,25 @@ export class AuthController {
         const { username, password } = signInDto
         
         if(!username || !password) {
-            // will respond with a 400 Bad Request
+            // will auto respond with a 400 Bad Request
             throw new BadRequestException('Username and password are required')
         }
         
         return this.authService.signIn(username, password)
+    }
+
+    @HttpCode(HttpStatus.OK)
+    @Post('register')
+    register(@Body() registerDto: RegisterDto) {
+
+        const { username, password, email } = registerDto
+        
+        if(!username || !password || !email) {
+            // will auto respond with a 400 Bad Request
+            throw new BadRequestException('Username and password are required')
+        }
+        
+        return this.authService.register(username, password, email)
     }
 
     @UseGuards(AuthGuard)
