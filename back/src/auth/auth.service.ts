@@ -32,6 +32,25 @@ export class AuthService {
         }
     }
 
+    async register(username: string, password: string, email : string): Promise<{ access_token: string }> {
+
+        const hashedPassword = bcrypt.hashSync(password, 10)
+        const user = await this.usersService.create({username, password : hashedPassword, email})
+
+        if(!user) throw new UnauthorizedException("User can't be found.")
+
+        const payload = { 
+            sub: user.id, 
+            username: user.username, 
+            admin : false, 
+            iss: 'your-issuer-name' 
+        }
+
+        return {
+            access_token: await this.jwtService.signAsync(payload),
+        }
+    }
+
     comparePasswords(plainPassword: string, hashedPassword: string): boolean {
         return bcrypt.compareSync(plainPassword, hashedPassword)
     }
