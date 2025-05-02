@@ -27,7 +27,6 @@ export class LoginComponent {
     const password = this.loginForm.get("password")?.value
     if(!username || !password) return
     this.authService.login({username, password}).subscribe({
-      next: token => console.log(token),
       error: (err) => this.handleLoginError(err)
     })
   }

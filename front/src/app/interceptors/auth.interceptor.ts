@@ -7,7 +7,7 @@ const TOKEN_REFRESH_THRESHOLD = 5000
 
 export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next : HttpHandlerFn) : Observable<HttpEvent<unknown>> => {
 
-    if (!req.url.includes("http://localhost:3000")) {
+    if (!req.url.includes("http://localhost:3000") || req.url.includes("http://localhost:3000/auth/register")) {
         return next(req);
     }
 
