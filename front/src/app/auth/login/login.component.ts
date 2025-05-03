@@ -3,11 +3,11 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { AuthService } from '../../services/auth.service';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [HeaderComponent, ReactiveFormsModule],
+  imports: [HeaderComponent, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -27,6 +27,7 @@ export class LoginComponent {
     const password = this.loginForm.get("password")?.value
     if(!username || !password) return
     this.authService.login({username, password}).subscribe({
+      next: () => this.router.navigate(['/']),
       error: (err) => this.handleLoginError(err)
     })
   }

@@ -6,5 +6,6 @@ export const routes: Routes = [
     { path: 'jobs/details/:id', loadComponent: () => import('./pages/job-details/job-details.component').then(m => m.JobDetailsComponent) },
     { path: 'login', loadComponent: () => import('./auth/login/login.component').then(m => m.LoginComponent) },
     { path: 'register', loadComponent: () => import('./auth/register/register.component').then(m => m.RegisterComponent) },
+    { path: 'resetpassword', loadComponent: () => import('./auth/reset-password/reset-password.component').then(m => m.ResetPasswordComponent) },
     { path: '', component: JobsListComponent },
 ];
