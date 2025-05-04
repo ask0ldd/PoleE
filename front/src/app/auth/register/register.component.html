@@ -1,0 +1,20 @@
+<div class="flex flex-col w-full items-center">
+    <app-header/>
+    <form [formGroup]="registerForm" (ngSubmit)="handleRegister()" class="flex flex-col w-full gap-y-[15px] mt-[80px] max-w-[540px] border-1 border-[#d0dceccc] px-[20px] py-[30px] rounded-[12px]">
+        <label for="username" id="usernameLabel">Username</label>
+        <input formControlName="username" id="username" aria-labelledby="usernameLabel" type="text" class="flex items-center h-full bg-[#ffffff] border-1 border-[#d0dceccc] px-[15px] rounded-[6px] focus:outline-[#7644BBcc]" placeholder="Username"/>
+        <label for="email" id="emailLabel">Email</label>
+        <input formControlName="email" id="email" aria-labelledby="emailLabel" type="text" class="flex items-center h-full bg-[#ffffff] border-1 border-[#d0dceccc] px-[15px] rounded-[6px] focus:outline-[#7644BBcc]" placeholder="Email"/>
+        <label for="password" id="passwordLabel">Password</label>
+        <input formControlName="password" id="password" aria-labelledby="passwordLabel" type="password" class="flex items-center h-full bg-[#ffffff] border-1 border-[#d0dceccc] px-[15px] rounded-[6px] focus:outline-[#7644BBcc]" placeholder="Password"/>
+        <label for="passwordVerif" id="passwordLabelVerif">Password Check</label>
+        <input formControlName="passwordVerif" id="passwordVerif" aria-labelledby="passwordVerifLabel" type="password" class="flex items-center h-full bg-[#ffffff] border-1 border-[#d0dceccc] px-[15px] rounded-[6px] focus:outline-[#7644BBcc]" placeholder="Password Verification"/>
+        @if (error != null) {
+            <p class="text-red-400">{{error}}</p>
+        }
+        <img class="max-w-[300px] mx-[auto] mt-[10px]" src="https://developers.google.com/static/recaptcha/images/newCaptchaAnchor.gif"/>
+        <button class="flex flex-row w-full justify-center items-center text-[#ffffff] font-semibold mt-[10px] h-[40px] bg-[#7644BBcc] px-[25px] rounded-[6px] hover:cursor-pointer shadow-md shadow-[#7644BB44]">
+            Register
+        </button>
+    </form>
+</div>
