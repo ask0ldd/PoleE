@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { JobsAPIService } from '../../services/mocks/jobs-api.service';
-import { take } from 'rxjs';
+import { filter, map, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import IJobOffer from '../../interfaces/jobsAPI/IJobOffer';
 import { JobItemComponent } from './job-item/job-item.component';
@@ -52,7 +52,14 @@ export class JobsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchJobs()
-    this.whisperService.generate()
+
+    this.whisperService.generate$().pipe(
+      filter(value => value !== null),
+      take(1),
+      takeUntilDestroyed(this.destroyRef),
+      map(value => console.log(value))
+    ).subscribe()
+    
   }
 
   handleFetchAllError(err : Error, ){

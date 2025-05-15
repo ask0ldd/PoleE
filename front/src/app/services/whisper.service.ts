@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AutomaticSpeechRecognitionPipeline, pipeline } from '@huggingface/transformers';
+import { AutomaticSpeechRecognitionOutput, AutomaticSpeechRecognitionPipeline, pipeline } from '@huggingface/transformers';
+import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,22 +20,27 @@ export class WhisperService {
         device: "webgpu",
         dtype : 'fp32',
       },
-    );    
+    )
   }
 
-  async generate() : Promise<void>{
+  async transcribe() : Promise<AutomaticSpeechRecognitionOutput | AutomaticSpeechRecognitionOutput[] | null>{
     try{
       await this.init()
       if(!this.transcriber) throw new Error("TTS generator hasn't been initilized.")
       const url = "https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav"
       // const url = "http://localhost:3000/static/video.wav"
-      const output = await this.transcriber(url, {
+      return await this.transcriber(url, {
         chunk_length_s: 30,
-        stride_length_s: 10,        // 6 seconds overlap on both sides
-      })
-      console.log(output)
+        stride_length_s: 10,
+      });
     }catch(error : unknown){
       console.error(error)
+      return null
     }
   }
+
+  generate$(): Observable<AutomaticSpeechRecognitionOutput | AutomaticSpeechRecognitionOutput[] | null> {
+    return from(this.transcribe())
+  }
+  
 }
