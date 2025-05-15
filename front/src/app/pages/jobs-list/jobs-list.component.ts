@@ -10,6 +10,7 @@ import { DrawerComponent } from '../../components/drawer/drawer.component';
 import { marked } from 'marked';
 import { JobOfferComponent } from '../../components/drawer/job-offer/job-offer.component';
 import { HeaderComponent } from '../../components/header/header.component';
+import { WhisperService } from '../../services/whisper.service';
 
 @Component({
   selector: 'app-jobs-list',
@@ -27,8 +28,8 @@ export class JobsListComponent implements OnInit {
 
   constructor(
     private jobsAPIService : JobsAPIService,
-    /*private whisperService : WhisperService,
-    private ttsService : TTSService,
+    private whisperService : WhisperService,
+    /*private ttsService : TTSService,
     private llmService : LlmService,*/
     // private indexedDBStorageService : IndexedDBStorageService,
   ){ }
@@ -51,6 +52,7 @@ export class JobsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchJobs()
+    this.whisperService.generate()
   }
 
   handleFetchAllError(err : Error, ){
