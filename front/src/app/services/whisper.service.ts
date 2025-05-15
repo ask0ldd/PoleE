@@ -17,7 +17,7 @@ export class WhisperService {
       "onnx-community/whisper-tiny.en",
       { 
         device: "webgpu",
-        dtype : 'fp32'
+        dtype : 'fp32',
       },
     );    
   }
@@ -27,7 +27,11 @@ export class WhisperService {
       await this.init()
       if(!this.transcriber) throw new Error("TTS generator hasn't been initilized.")
       const url = "https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav"
-      const output = await this.transcriber(url)
+      // const url = "http://localhost:3000/static/video.wav"
+      const output = await this.transcriber(url, {
+        chunk_length_s: 30,
+        stride_length_s: 10,        // 6 seconds overlap on both sides
+      })
       console.log(output)
     }catch(error : unknown){
       console.error(error)
